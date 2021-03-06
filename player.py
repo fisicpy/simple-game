@@ -1,48 +1,67 @@
 import pygame
-import keyboard
 
-class Player(object):
-	def __init__(self, screen, color, size, x, y, btn_right, btn_left, btn_up, btn_down, score):
-		self.screen = screen
-		self.color = color
-		self.size = size
-		self.x = x
-		self.y = y
-		self.btn_right = btn_right
-		self.btn_left = btn_left
-		self.btn_up = btn_up
-		self.btn_down = btn_down
-		self.score = score
 
-	def get_x(self):
-		return self.x
+def constrain(val, min_val, max_val):
+    if val < min_val:
+        return min_val
+    if val > max_val:
+        return max_val
+    return val
 
-	def get_y(self):
-		return self.y
 
-	def get_btn_right(self):
-		return self.btn_right
+class Player:
+    def __init__(self, surface, x, y, width, height, body_color, eyes_color, hp, view):
+        self.surface = surface
+        self.x = x
+        self.y = y
+        self.width = width
+        self.height = height
+        self.body_color = body_color
+        self.eyes_color = eyes_color
+        self.hp = hp
+        self.view = view  # "top", "down", "right", "left"
 
-	def get_btn_left(self):
-		return self.btn_left
+    def draw(self):
+        pygame.draw.rect(self.surface, self.body_color, (self.x, self.y, self.width, self.height))
+        if self.view == "top":
+            pygame.draw.rect(self.surface, self.eyes_color, (self.x, self.y, self.width, self.height // 5))
+        elif self.view == "down":
+            pygame.draw.rect(self.surface, self.eyes_color, (self.x, self.y + self.height * 0.8, self.width, self.height // 5))
+        elif self.view == "right":
+            pygame.draw.rect(self.surface, self.eyes_color, (self.x + self.height * 0.8, self.y, self.width // 5, self.height))
+        elif self.view == "left":
+            pygame.draw.rect(self.surface, self.eyes_color, (self.x, self.y, self.width // 5, self.height))
 
-	def get_btn_up(self):
-		return self.btn_up
+    def get_x(self):
+        return self.x
 
-	def get_btn_down(self):
-		return self.btn_down
+    def get_y(self):
+        return self.y
 
-	def get_score(self):
-		return self.score
+    def get_width(self):
+        return self.width
 
-	def new_x(self, val):
-		self.x = val
+    def get_height(self):
+        return self.height
 
-	def new_y(self, val):
-		self.y = val
+    def get_color(self):
+        return self.color
 
-	def new_score(self, val):
-		self.score = val
+    def get_hp(self):
+        return self.hp
 
-	def draw(self):
-		pygame.draw.rect(self.screen, self.color, (self.x * self.size, self.y * self.size, self.size, self.size))
+    def new_x(self, val):
+        self.x = val
+
+    def new_y(self, val):
+        self.y = val
+
+    def new_color(self, val):
+        self.color = val
+
+    def new_hp(self, val):
+        self.hp = constrain(val, 0, 5)
+
+    def shoot(self):
+        pass
+

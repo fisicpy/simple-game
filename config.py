@@ -1,5 +1,5 @@
-display_width = 300
-display_height = 335
+display_width = 600
+display_height = 550
 
 block_size = 20
 
