@@ -3,4 +3,4 @@ display_height = 550
 
 block_size = 20
 
-FPS = 15
+FPS = 10

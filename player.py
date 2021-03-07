@@ -10,7 +10,7 @@ def constrain(val, min_val, max_val):
 
 
 class Player:
-    def __init__(self, surface, x, y, width, height, body_color, eyes_color, hp, view):
+    def __init__(self, surface, x, y, width, height, body_color, eyes_color, hp, view, score):
         self.surface = surface
         self.x = x
         self.y = y
@@ -19,11 +19,12 @@ class Player:
         self.body_color = body_color
         self.eyes_color = eyes_color
         self.hp = hp
-        self.view = view  # "top", "down", "right", "left"
+        self.view = view  # "up", "down", "right", "left"
+        self.score = score
 
     def draw(self):
         pygame.draw.rect(self.surface, self.body_color, (self.x, self.y, self.width, self.height))
-        if self.view == "top":
+        if self.view == "up":
             pygame.draw.rect(self.surface, self.eyes_color, (self.x, self.y, self.width, self.height // 5))
         elif self.view == "down":
             pygame.draw.rect(self.surface, self.eyes_color, (self.x, self.y + self.height * 0.8, self.width, self.height // 5))
@@ -31,6 +32,8 @@ class Player:
             pygame.draw.rect(self.surface, self.eyes_color, (self.x + self.height * 0.8, self.y, self.width // 5, self.height))
         elif self.view == "left":
             pygame.draw.rect(self.surface, self.eyes_color, (self.x, self.y, self.width // 5, self.height))
+        else:
+            pygame.draw.rect(self.surface, self.eyes_color, (self.x, self.y, self.width, self.height // 5))
 
     def get_x(self):
         return self.x
@@ -50,6 +53,12 @@ class Player:
     def get_hp(self):
         return self.hp
 
+    def get_score(self):
+        return self.score
+
+    def get_view(self):
+        return self.view
+
     def new_x(self, val):
         self.x = val
 
@@ -61,6 +70,12 @@ class Player:
 
     def new_hp(self, val):
         self.hp = constrain(val, 0, 5)
+
+    def new_score(self, val):
+        self.score = val
+
+    def new_view(self, val):
+        self.view = val
 
     def shoot(self):
         pass
