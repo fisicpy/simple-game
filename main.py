@@ -54,6 +54,11 @@ if __name__ == "__main__":
             if event.type == pygame.QUIT:
                 run_game = False
 
+        display.fill((0, 0, 0))
+
+        for wall in walls:
+            wall.draw()
+
         if keyboard.is_pressed("right"):
             if player.get_view() == "up":
                 player.new_view("right")
@@ -73,13 +78,27 @@ if __name__ == "__main__":
             elif player.get_view() == "right":
                 player.new_view("up")
 
-        display.fill((0, 0, 0))
+        if keyboard.is_pressed("up"):
+            if player.get_view() == "up":
+                player.new_y(constrain(player.get_y() - 10, 50, 500))
+            elif player.get_view() == "down":
+                player.new_y(constrain(player.get_y() + 10, 50, 500))
+            elif player.get_view() == "right":
+                player.new_x(constrain(player.get_x() + 10, 0, 600))
+            elif player.get_view() == "left":
+                player.new_x(constrain(player.get_x() - 10, 0, 600))
+        elif keyboard.is_pressed("down"):
+            if player.get_view() == "up":
+                player.new_y(constrain(player.get_y() + 10, 50, 500))
+            elif player.get_view() == "down":
+                player.new_y(constrain(player.get_y() - 10, 50, 500))
+            elif player.get_view() == "right":
+                player.new_x(constrain(player.get_x() - 10, 0, 600))
+            elif player.get_view() == "left":
+                player.new_x(constrain(player.get_x() + 10, 0, 600))
 
         text = myfont.render(f"score: {player.get_score()}", False, (3, 196, 161))
         display.blit(text, (0, 0))
-
-        for wall in walls:
-            wall.draw()
 
         player.draw()
 
